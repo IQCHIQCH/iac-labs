@@ -19,6 +19,7 @@ jobs:
     concurrency:
       group: first-group
     steps:
+    - uses: snok/install-poetry@v1.3.4
     - name: Cache build venv
       id: cached-poetry-dependencies
       uses: actions/cache@v3
@@ -37,6 +38,7 @@ jobs:
     concurrency:
       group: second-group
     steps:
+    - uses: snok/install-poetry@v1.3.4
     - name: Cache build venv
       id: cached-poetry-dependencies
       uses: actions/cache@v3
@@ -55,6 +57,7 @@ jobs:
     concurrency:
       group: third-group
     steps:
+    - uses: snok/install-poetry@v1.3.4
     - name: Cache build venv
       id: cached-poetry-dependencies
       uses: actions/cache@v3
@@ -75,6 +78,7 @@ jobs:
         working-directory: ./example-app
     needs: [lint, formatter, security]
     steps:
+    - uses: snok/install-poetry@v1.3.4
     - name: Cache build venv
       id: cached-poetry-dependencies
       uses: actions/cache@v3
