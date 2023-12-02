@@ -19,12 +19,13 @@ jobs:
     
     defaults:
       run:
-        working-directory: /home/runner/work/iac-labs/example-app
+        working-directory: ./example-app
         
     needs: build
     concurrency:
       group: first-group
     steps:
+    - uses: actions/checkout@v3
     - uses: snok/install-poetry@v1.3.4
     - name: Cache build venv
       id: cached-poetry-dependencies
@@ -41,12 +42,13 @@ jobs:
 
     defaults:
       run:
-        working-directory: /home/runner/work/iac-labs/example-app
+        working-directory: ./example-app
         
     needs: build
     concurrency:
       group: second-group
     steps:
+    - uses: actions/checkout@v3
     - uses: snok/install-poetry@v1.3.4
     - name: Cache build venv
       id: cached-poetry-dependencies
@@ -63,12 +65,13 @@ jobs:
 
     defaults:
       run:
-        working-directory: /home/runner/work/iac-labs/example-app
+        working-directory: ./example-app
         
     needs: build
     concurrency:
       group: third-group
     steps:
+    - uses: actions/checkout@v3
     - uses: snok/install-poetry@v1.3.4
     - name: Cache build venv
       id: cached-poetry-dependencies
@@ -85,9 +88,10 @@ jobs:
     
     defaults:
       run:
-        working-directory: /home/runner/work/iac-labs/example-app
+        working-directory: ./example-app
     needs: [lint, formatter, security]
     steps:
+    - uses: actions/checkout@v3
     - uses: snok/install-poetry@v1.3.4
     - name: Cache build venv
       id: cached-poetry-dependencies
