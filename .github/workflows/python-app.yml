@@ -14,7 +14,13 @@ permissions:
 
 jobs:
   lint:
+  
     runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ./example-app
+        
     needs: build
     concurrency:
       group: first-group
@@ -32,6 +38,11 @@ jobs:
   formatter:
 
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./example-app
+        
     needs: build
     concurrency:
       group: second-group
@@ -49,6 +60,11 @@ jobs:
   security:
 
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./example-app
+        
     needs: build
     concurrency:
       group: third-group
@@ -66,6 +82,10 @@ jobs:
   unittests:
 
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./example-app
 
     defaults:
       run:
