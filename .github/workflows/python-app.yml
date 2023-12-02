@@ -27,9 +27,7 @@ jobs:
         path: /home/runner/.cache/pypoetry/virtualenvs
         key: ${{ runner.os }}-venv
     - name: Lint with flake8
-      run: |
-        poetry install --no-root
-        poetry run task lint
+      run: poetry run task lint
 
   formatter:
 
@@ -46,9 +44,7 @@ jobs:
         path: /home/runner/.cache/pypoetry/virtualenvs
         key: ${{ runner.os }}-venv
     - name: Format code
-      run: |
-        poetry install --no-root
-        poetry run task formatter
+      run: poetry run task formatter
 
   security:
 
@@ -65,9 +61,7 @@ jobs:
         path: /home/runner/.cache/pypoetry/virtualenvs
         key: ${{ runner.os }}-venv
     - name: Security checks
-      run: |
-        poetry install --no-root
-        poetry run task security
+      run: poetry run task security
       
   unittests:
 
@@ -86,9 +80,7 @@ jobs:
         path: /home/runner/.cache/pypoetry/virtualenvs
         key: ${{ runner.os }}-venv
     - name: Unit tests
-      run: |
-        poetry install --no-root
-        poetry run task test
+      run: poetry run task test
 
   build:
 
