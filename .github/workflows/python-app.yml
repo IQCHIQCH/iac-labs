@@ -71,10 +71,6 @@ jobs:
   security:
 
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: ./example-app
     needs: build
     concurrency:
       group: third-group
