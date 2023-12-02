@@ -14,8 +14,11 @@ permissions:
 
 jobs:
   lint:
-  
-    runs-on: ubuntu-latest
+    strategy:
+        matrix:
+          os: [windows-latest, ubuntu-latest]
+        
+    runs-on: ${{ matrix.os }}
     
     defaults:
       run:
@@ -37,8 +40,11 @@ jobs:
       run: poetry run task lint
 
   formatter:
+    strategy:
+        matrix:
+          os: [windows-latest, ubuntu-latest]
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     defaults:
       run:
@@ -60,8 +66,11 @@ jobs:
       run: poetry run task formatter
 
   security:
+    strategy:
+        matrix:
+          os: [windows-latest, ubuntu-latest]
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     defaults:
       run:
@@ -83,8 +92,11 @@ jobs:
       run: poetry run task security
       
   unittests:
+    strategy:
+        matrix:
+          os: [windows-latest, ubuntu-latest]
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     
     defaults:
       run:
@@ -103,8 +115,11 @@ jobs:
       run: poetry run task test
 
   build:
+    strategy:
+        matrix:
+          os: [windows-latest, ubuntu-latest]
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     defaults:
       run:
