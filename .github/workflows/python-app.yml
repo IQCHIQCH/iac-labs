@@ -15,10 +15,6 @@ permissions:
 jobs:
   lint:
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: ./example-app
     needs: build
     concurrency:
       group: first-group
@@ -27,26 +23,14 @@ jobs:
       id: cached-poetry-dependencies
       uses: actions/cache@v3
       with:
-        path: /home/runner/work/<path>/example-app/.venv
+        path: /home/runner/.cache/pypoetry/virtualenvs
         key: ${{ runner.os }}-venv
-    - uses: actions/checkout@v3
-    - uses: snok/install-poetry@v1.3.4
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.10"
     - name: Lint with flake8
-      run: |
-        poetry install --no-root
-        poetry run task lint
+      run: poetry run task lint
 
   formatter:
 
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: ./example-app
     needs: build
     concurrency:
       group: second-group
@@ -55,18 +39,10 @@ jobs:
       id: cached-poetry-dependencies
       uses: actions/cache@v3
       with:
-        path: /home/runner/work/<path>/example-app/.venv
+        path: /home/runner/.cache/pypoetry/virtualenvs
         key: ${{ runner.os }}-venv
-    - uses: actions/checkout@v3
-    - uses: snok/install-poetry@v1.3.4
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.10"
     - name: Format code
-      run: |
-        poetry install --no-root
-        poetry run task formatter
+      run: poetry run task formatter
 
   security:
 
@@ -79,7 +55,7 @@ jobs:
       id: cached-poetry-dependencies
       uses: actions/cache@v3
       with:
-        path: /home/runner/work/<path>/example-app/.venv
+        path: /home/runner/.cache/pypoetry/virtualenvs
         key: ${{ runner.os }}-venv
     - name: Security checks
       run: poetry run task security
@@ -97,18 +73,10 @@ jobs:
       id: cached-poetry-dependencies
       uses: actions/cache@v3
       with:
-        path: /home/runner/work/<path>/example-app/.venv
+        path: /home/runner/.cache/pypoetry/virtualenvs
         key: ${{ runner.os }}-venv
-    - uses: actions/checkout@v3
-    - uses: snok/install-poetry@v1.3.4
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.10"
     - name: Unit tests
-      run:  |
-        poetry install --no-root
-        poetry run task test
+      run: poetry run task test
 
   build:
 
@@ -131,5 +99,5 @@ jobs:
       id: cached-poetry-dependencies
       uses: actions/cache@v3
       with:
-        path: /home/runner/work/<path>/example-app/.venv
+        path: /home/runner/.cache/pypoetry/virtualenvs
         key: ${{ runner.os }}-venv
