@@ -134,7 +134,7 @@ jobs:
         python-version: "3.10"
     - name: Add Poetry to PATH (Windows)
       if: startsWith(matrix.os, 'windows')
-      run: echo "C:\Users\runneradmin\AppData\Roaming\Python\Scripts" >> $GITHUB_PATH
+      run: echo "C:\Users\runneradmin\.local\bin\poetry" >> $GITHUB_PATH
     - name: Install dependencies
       run: poetry install --no-root
     - name: Cache build venv
