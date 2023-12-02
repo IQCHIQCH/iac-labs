@@ -19,7 +19,7 @@ jobs:
     
     defaults:
       run:
-        working-directory: ./example-app
+        working-directory: example-app
         
     needs: build
     concurrency:
@@ -41,7 +41,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./example-app
+        working-directory: example-app
         
     needs: build
     concurrency:
@@ -63,7 +63,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./example-app
+        working-directory: example-app
         
     needs: build
     concurrency:
@@ -85,7 +85,7 @@ jobs:
     
     defaults:
       run:
-        working-directory: ./example-app
+        working-directory: example-app
     needs: [lint, formatter, security]
     steps:
     - uses: snok/install-poetry@v1.3.4
