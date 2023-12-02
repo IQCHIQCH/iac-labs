@@ -13,6 +13,38 @@ permissions:
   contents: read
 
 jobs:
+  lint:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Lint with flake8
+      run: echo "Lint step here..."
+
+  formatter:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Format code
+      run: echo "Formatter step here..."
+
+  security:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Security checks
+      run: echo "Security step here..."
+      
+  unittests:
+    needs: [lint, formatter, security]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Unit tests
+      run: echo "Unit tests step here..."
+
   build:
 
     runs-on: ubuntu-latest
