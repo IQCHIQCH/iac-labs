@@ -14,10 +14,14 @@ permissions:
 
 jobs:
   lint:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./example-app
     needs: build
     concurrency:
       group: first-group
-    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Cache build venv
@@ -27,13 +31,20 @@ jobs:
         path: /home/runner/work/<path>/example-app/.venv
         key: ${{ runner.os }}-venv
     - name: Lint with flake8
-      run: poetry run task lint
+      run: |
+        poetry install --no-root
+        poetry run task lint
 
   formatter:
+
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./example-app
     needs: build
     concurrency:
       group: second-group
-    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Cache build venv
@@ -43,9 +54,17 @@ jobs:
         path: /home/runner/work/<path>/example-app/.venv
         key: ${{ runner.os }}-venv
     - name: Format code
-      run: poetry run task formatter
+      run: |
+        poetry install --no-root
+        poetry run task formatter
 
   security:
+
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./example-app
     needs: build
     concurrency:
       group: third-group
@@ -59,9 +78,17 @@ jobs:
         path: /home/runner/work/<path>/example-app/.venv
         key: ${{ runner.os }}-venv
     - name: Security checks
-      run: poetry run task security
+      run: |
+        poetry install --no-root
+        poetry run task security
       
   unittests:
+
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./example-app
     needs: [lint, formatter, security]
     runs-on: ubuntu-latest
     steps:
@@ -73,7 +100,9 @@ jobs:
         path: /home/runner/work/<path>/example-app/.venv
         key: ${{ runner.os }}-venv
     - name: Unit tests
-      run: poetry run task test
+      run:  |
+        poetry install --no-root
+        poetry run task test
 
   build:
 
