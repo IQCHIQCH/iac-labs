@@ -15,39 +15,74 @@ permissions:
 jobs:
   lint:
     needs: build
+    concurrency:
+      group: second-group
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Lint with flake8
       run: echo "Lint step here..."
+    - name: Cache build venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v3
+      with:
+        path: /home/runner/work/<path>/example-app/.venv
+        key: ${{ runner.os }}-venv
 
   formatter:
     needs: build
+    concurrency:
+      group: second-group
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Format code
       run: echo "Formatter step here..."
+    - name: Cache build venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v3
+      with:
+        path: /home/runner/work/<path>/example-app/.venv
+        key: ${{ runner.os }}-venv
 
   security:
     needs: build
+    concurrency:
+      group: second-group
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Security checks
       run: echo "Security step here..."
+    - name: Cache build venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v3
+      with:
+        path: /home/runner/work/<path>/example-app/.venv
+        key: ${{ runner.os }}-venv
       
   unittests:
     needs: [lint, formatter, security]
+    concurrency:
+      group: third-group
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Unit tests
       run: echo "Unit tests step here..."
+    - name: Cache build venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v3
+      with:
+        path: /home/runner/work/<path>/example-app/.venv
+        key: ${{ runner.os }}-venv
 
   build:
 
     runs-on: ubuntu-latest
+    
+    concurrency:
+      group: first-group
 
     defaults:
       run:
@@ -74,3 +109,9 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
+    - name: Cache build venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v3
+      with:
+        path: /home/runner/work/<path>/example-app/.venv
+        key: ${{ runner.os }}-venv
