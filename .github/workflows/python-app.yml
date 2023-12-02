@@ -85,16 +85,8 @@ jobs:
       with:
         path: /home/runner/work/<path>/example-app/.venv
         key: ${{ runner.os }}-venv
-    - uses: actions/checkout@v3
-    - uses: snok/install-poetry@v1.3.4
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.10"
     - name: Security checks
-      run: |
-        poetry install --no-root
-        poetry run task security
+      run: poetry run task security
       
   unittests:
 
@@ -137,12 +129,11 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: "3.10"
+    - name: Install dependencies
+      run: poetry install --no-root
     - name: Cache build venv
       id: cached-poetry-dependencies
       uses: actions/cache@v3
       with:
         path: /home/runner/work/<path>/example-app/.venv
         key: ${{ runner.os }}-venv
-    - name: Install dependencies
-      run: |
-        poetry install --no-root
