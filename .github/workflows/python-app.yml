@@ -23,6 +23,7 @@ jobs:
     defaults:
       run:
         working-directory: ./example-app
+        shell: bash
         
     needs: build
     concurrency:
@@ -49,6 +50,7 @@ jobs:
     defaults:
       run:
         working-directory: ./example-app
+        shell: bash
         
     needs: build
     concurrency:
@@ -75,6 +77,7 @@ jobs:
     defaults:
       run:
         working-directory: ./example-app
+        shell: bash
         
     needs: build
     concurrency:
@@ -101,6 +104,7 @@ jobs:
     defaults:
       run:
         working-directory: ./example-app
+        shell: bash
     needs: [lint, formatter, security]
     steps:
     - uses: actions/checkout@v3
@@ -124,6 +128,7 @@ jobs:
     defaults:
       run:
         working-directory: ./example-app
+        shell: bash
 
     steps:
     - uses: actions/checkout@v3
