@@ -16,7 +16,7 @@ jobs:
   lint:
     needs: build
     concurrency:
-      group: second-group
+      group: first-group
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -48,7 +48,7 @@ jobs:
   security:
     needs: build
     concurrency:
-      group: second-group
+      group: third-group
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -63,8 +63,6 @@ jobs:
       
   unittests:
     needs: [lint, formatter, security]
-    concurrency:
-      group: third-group
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -80,9 +78,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    
-    concurrency:
-      group: first-group
 
     defaults:
       run:
